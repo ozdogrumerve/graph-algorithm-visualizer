@@ -74,3 +74,39 @@ body {
 .log-panel {
     overflow-y: auto;
 }
+
+.top-toolbar {
+    display: flex; /* yatay düzen */ 
+    align-items: center;
+    gap: 12px;
+    padding: 10px 15px;
+    background: #f4f6f8;
+    border-bottom: 1px solid #ddd;
+}
+
+.toolbar-btn {
+    background: #3a86c4;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    padding: 6px 14px;
+    font-size: 14px;
+    width: auto;       /* full width olmasını engeller */
+    min-width: 90px;   /* çok küçülmesini engeller */
+    cursor: pointer;
+}
+
+.toolbar-btn:hover {
+
+background: #2980b9;
+
+}
+
+.speed-control {
+display: flex;
+align-items: center;
+gap: 8px;
+margin-left: auto;
+width: 220px;
+flex-shrink: 0; /* küçülmeyi engeller */
+}

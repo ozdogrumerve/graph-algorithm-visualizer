@@ -58,28 +58,24 @@
 
         <hr>
 
-        <h3>Controls</h3>
-
-        <button id="startBtn">Start</button>
-        <button id="nextStepBtn">Next Step</button>
-        <button id="prevStepBtn">Back Step</button>
-        <button id="pauseBtn">Pause</button>
-        <button id="resetBtn">Reset</button>
-
-        <hr>
-
-        <h3>Speed</h3>
-
-        <input type="range" id="speedSlider" min="0.25" max="2" step="0.25" value="1">
-        <span id="speedValue">1x</span>
-
     </aside>
 
 
     <!-- Graph Visualization Area -->
     <section class="graph-area">
-        <div id="startNodeHint">
-           💡 Click a node to select the start node
+        <div class="top-toolbar">
+            <button id="startBtn">Start</button>
+            <button id="nextStepBtn">Next Step</button>
+            <button id="prevStepBtn">Back Step</button>
+            <button id="pauseBtn">Pause</button>
+            <button id="resetBtn">Reset</button>
+
+            <hr>
+
+            <h3>Speed</h3>
+
+            <input type="range" id="speedSlider" min="0.25" max="2" step="0.25" value="1">
+            <span id="speedValue">1x</span>
         </div>
 
         <!-- vis-network graph container -->
