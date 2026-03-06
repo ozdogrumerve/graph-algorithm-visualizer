@@ -85,8 +85,13 @@ export function initializeControls(
     document.getElementById("nextStepBtn").onclick =
     () => stepController.nextStep();
 
-    document.getElementById("prevStepBtn").onclick =
-        () => stepController.previousStep();
+    document.getElementById("prevStepBtn").onclick = () => {
+
+        stepController.previousStep();
+
+        document.getElementById("pauseBtn").innerText = "Play";
+
+        };
 
         const pauseBtn = document.getElementById("pauseBtn");
 

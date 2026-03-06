@@ -21,6 +21,41 @@ export class GraphEditor {
         this.firstNode = null;
 
         this.initializeNetworkEvents();
+
+        /*
+        ====================================
+        DELETE NODE WITH KEYBOARD
+        ====================================
+        */
+
+        document.addEventListener("keydown", (event) => {
+
+            if (event.key === "Delete" || event.key === "Backspace") {
+
+                const selectedNodes =
+                    this.graphRenderer.network.getSelectedNodes();
+
+                const selectedEdges =
+                    this.graphRenderer.network.getSelectedEdges();
+
+
+                // Node silme
+                if (selectedNodes.length > 0) {
+
+                    this.deleteNode(selectedNodes[0]);
+
+                }
+
+                // Edge silme
+                else if (selectedEdges.length > 0) {
+
+                    this.deleteEdge(selectedEdges[0]);
+
+                }
+
+            }
+
+        });
     }
 
     /*
@@ -148,5 +183,47 @@ export class GraphEditor {
             this.graphManager.nodes,
             this.graphManager.edges
         );
+    }
+
+    /*
+    ====================================
+    DELETE NODE
+    ====================================
+    */
+
+    deleteNode(nodeId) {
+
+        // node'u sil
+        this.graphManager.nodes =
+            this.graphManager.nodes.filter(
+                n => n.id !== nodeId
+            );
+
+        // node'a bağlı edge'leri sil
+        this.graphManager.edges =
+            this.graphManager.edges.filter(
+                e => e.from !== nodeId && e.to !== nodeId
+            );
+
+        // grafiği yeniden çiz
+        this.updateGraph();
+
+    }
+
+    /*
+    ====================================
+    DELETE EDGE
+    ====================================
+    */
+
+    deleteEdge(edgeId) {
+
+        this.graphManager.edges =
+            this.graphManager.edges.filter(
+                e => e.id !== edgeId
+            );
+
+        this.updateGraph();
+
     }
 }
