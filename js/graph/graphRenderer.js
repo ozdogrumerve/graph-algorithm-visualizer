@@ -28,6 +28,12 @@ export class GraphRenderer {
             edges: {
                 arrows: "to",
 
+                color: {
+                    color: "#2b7ce9",
+                    highlight: "#335372",
+                    hover: "#2b7ce9"
+                },
+
                 smooth: {
                     enabled: true,
                     type: "curvedCW",
@@ -40,7 +46,7 @@ export class GraphRenderer {
                     size: 14
                 },
 
-                width: 2
+                width: 2,
             },
 
             nodes: {
