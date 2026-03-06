@@ -255,6 +255,49 @@ export function initializeControls(
 
     /*
     ====================================
+    DOWNLOAD SAMPLE JSON
+    ====================================
+    */
+
+    document.getElementById("downloadSampleJson").onclick = () => {
+
+        const sampleGraph = {
+
+            nodes: [
+                { id: 1 },
+                { id: 2 },
+                { id: 3 },
+                { id: 4 }
+            ],
+
+            edges: [
+                { from: 1, to: 2, weight: 2 },
+                { from: 2, to: 3, weight: 3 },
+                { from: 3, to: 4, weight: 1 },
+                { from: 1, to: 4, weight: 6 }
+            ]
+
+        };
+
+        const json = JSON.stringify(sampleGraph, null, 2);
+
+        const blob = new Blob([json], {
+            type: "application/json"
+        });
+
+        const url = URL.createObjectURL(blob);
+
+        const link = document.createElement("a");
+
+        link.href = url;
+        link.download = "sample-graph.json";
+
+        link.click();
+
+    };
+
+    /*
+    ====================================
     FILE IMPORT HANDLER
     ====================================
     */
