@@ -125,17 +125,32 @@ export class GraphRenderer {
 
     resetStyles() {
 
-        const updatedNodes = this.nodes.get().map(n => ({
-            ...n,
-            color: { background: "#97C2FC" }
-        }));
+        const nodes = this.nodes.get();
 
-        const updatedEdges = this.edges.get().map(e => ({
-            ...e,
-            color: { color: "#848484" }
-        }));
+        nodes.forEach(node => {
 
-        this.nodes.update(updatedNodes);
-        this.edges.update(updatedEdges);
+            this.nodes.update({
+                id: node.id,
+                color: {
+                    background: "#4a90e2"
+                }
+            });
+
+        });
+
+
+        const edges = this.edges.get();
+
+        edges.forEach(edge => {
+
+            this.edges.update({
+                id: edge.id,
+                color: {
+                    color: "#848484"
+                }
+            });
+
+        });
+
     }
 }

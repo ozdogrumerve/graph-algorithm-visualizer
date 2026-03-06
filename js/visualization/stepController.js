@@ -88,10 +88,12 @@ export class StepController {
 
         this.logPanel.clear();
 
-        // baştan oynat
+        // Baştan replay yap
         for (let i = 0; i <= this.currentStep; i++) {
 
-            this.executeStep(this.steps[i], false);
+            const step = this.steps[i];
+
+            this.executeStep(step, true); // log tekrar yazılacak
         }
     }
 
@@ -190,20 +192,31 @@ export class StepController {
 
             case "relaxEdge":
 
-                this.graphRenderer.highlightEdge(
-                    step.edge
-                );
+                if (step.edge) {
+                    this.graphRenderer.highlightEdge(step.edge);
+                }
 
-                break;
+            break;
 
             case "highlightPath":
 
-                this.graphRenderer.highlightEdge(
-                    step.edge,
-                    "#27ae60"
+                if (step.edge) {
+                    this.graphRenderer.highlightEdge(
+                        step.edge,
+                        "#27ae60"
+                    );
+                }
+
+            break;
+
+            case "updateDistance":
+
+                this.graphRenderer.highlightNode(
+                    step.node,
+                    "#f1c40f"
                 );
 
-                break;
+            break;
         }
 
         if (log && step.message) {

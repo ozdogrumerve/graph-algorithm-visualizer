@@ -1,3 +1,5 @@
+import { runDijkstra } from "../algorithms/dijkstra.js";
+
 /*
 ========================================
 UI CONTROLS
@@ -62,8 +64,23 @@ export function initializeControls(
        (algoritmalar sonraki aşamada)
     ======================================== */
 
-    document.getElementById("startBtn").onclick =
-        () => console.log("Start algorithm");
+    document.getElementById("startBtn").onclick = () => {
+
+        const algorithm = document.getElementById("algorithmSelect").value;
+
+        let steps = [];
+
+        if (algorithm === "dijkstra") {
+
+            steps = runDijkstra(graphManager, 1);
+
+        }
+
+        stepController.loadSteps(steps);
+
+        stepController.play(); 
+
+    };
 
     document.getElementById("nextStepBtn").onclick =
     () => stepController.nextStep();
@@ -71,8 +88,23 @@ export function initializeControls(
     document.getElementById("prevStepBtn").onclick =
         () => stepController.previousStep();
 
-    document.getElementById("pauseBtn").onclick =
-        () => stepController.pause();
+        const pauseBtn = document.getElementById("pauseBtn");
+
+        pauseBtn.onclick = () => {
+
+            if (stepController.interval) {
+
+                stepController.pause();
+                pauseBtn.innerText = "Play";
+
+            } else {
+
+                stepController.play();
+                pauseBtn.innerText = "Pause";
+
+            }
+
+        };
 
     document.getElementById("resetBtn").onclick =
         () => stepController.reset();
