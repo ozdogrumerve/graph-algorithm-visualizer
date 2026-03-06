@@ -19,6 +19,7 @@ export class GraphEditor {
 
         this.edgeMode = false;
         this.firstNode = null;
+        this.startNode = null;
 
         this.initializeNetworkEvents();
 
@@ -52,6 +53,29 @@ export class GraphEditor {
                     this.deleteEdge(selectedEdges[0]);
 
                 }
+
+            }
+
+        });
+
+        /*
+        ====================================
+        SELECT START NODE
+        ====================================
+        */
+
+        this.graphRenderer.network.on("click", (params) => {
+
+            if (params.nodes.length > 0) {
+
+                const nodeId = params.nodes[0];
+
+                this.startNode = nodeId;
+                
+                document.getElementById("startNodeHint").innerText =
+                    "Start node: " + nodeId;
+
+                console.log("Start node selected:", nodeId);
 
             }
 

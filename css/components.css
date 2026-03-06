@@ -25,3 +25,15 @@ SPEED VALUE
     margin-left: 10px;
     font-weight: bold;
 }
+
+#startNodeHint {
+
+    background: #f4f6f8;
+    border: 1px solid #ddd;
+    padding: 8px 12px;
+    margin-bottom: 8px;
+    font-size: 14px;
+    color: #555;
+    border-radius: 6px;
+
+}

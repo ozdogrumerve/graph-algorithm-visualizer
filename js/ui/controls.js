@@ -72,8 +72,10 @@ export function initializeControls(
 
         if (algorithm === "dijkstra") {
 
-            steps = runDijkstra(graphManager, 1);
+            const startNode =
+                graphEditor.startNode || graphManager.nodes[0].id;
 
+            steps = runDijkstra(graphManager, startNode);
         }
 
         stepController.loadSteps(steps);
