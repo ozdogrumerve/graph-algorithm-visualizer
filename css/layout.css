@@ -1,0 +1,76 @@
+/* ======================================
+   GLOBAL LAYOUT
+====================================== */
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f6f8;
+    height: 100vh;
+}
+
+/* Header */
+
+.header {
+    height: 60px;
+    background-color: #2c3e50;
+    color: white;
+    display: flex;
+    align-items: center;
+    padding-left: 20px;
+}
+
+/* Main Layout */
+
+.main-container {
+    display: grid;
+    grid-template-columns: 260px 1fr 300px;
+    height: calc(100vh - 60px);
+}
+
+/* Sidebar */
+
+.sidebar {
+    background: white;
+    padding: 20px;
+    border-right: 1px solid #ddd;
+}
+
+.sidebar h3 {
+    margin-top: 15px;
+}
+
+/* Graph Area */
+
+.graph-area {
+    position: relative;
+}
+
+/* Graph Canvas */
+
+#graphCanvas {
+    width: 100%;
+    height: 100%;
+    background: white;
+}
+
+/* Log Panel */
+
+.log-panel {
+    background: white;
+    border-left: 1px solid #ddd;
+    padding: 20px;
+}
+
+#logList {
+    margin-top: 10px;
+    list-style: none;
+}
+
+#logList li {
+    margin-bottom: 5px;
+}
+
+.sidebar,
+.log-panel {
+    overflow-y: auto;
+}

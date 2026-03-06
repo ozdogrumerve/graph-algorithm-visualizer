@@ -1,0 +1,76 @@
+/* =========================================
+   CSS RESET
+   Tarayıcıların varsayılan stillerini sıfırlar
+   Böylece tüm tarayıcılarda tutarlı görünüm elde edilir
+========================================= */
+
+/* Box sizing standardizasyonu */
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+/* Margin ve padding sıfırlama */
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+/* Body ayarları */
+
+body {
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+}
+
+/* Media elementleri */
+
+img,
+picture,
+video,
+canvas,
+svg {
+    display: block;
+    max-width: 100%;
+}
+
+/* Form elementleri */
+
+input,
+button,
+textarea,
+select {
+    font: inherit;
+}
+
+/* Button default style kaldırma */
+
+button {
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+/* Link default */
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+/* Liste default */
+
+ul,
+ol {
+    list-style: none;
+}
+
+/* Table reset */
+
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}

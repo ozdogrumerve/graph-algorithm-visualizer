@@ -1,0 +1,138 @@
+/* ========================================
+GLOBAL THEME
+======================================== */
+
+body {
+    font-family: "Segoe UI", Roboto, Arial, sans-serif;
+    background: #f4f6fb;
+    color: #333;
+}
+
+/* ========================================
+HEADER
+======================================== */
+
+.header {
+    background: linear-gradient(90deg,#2c3e50,#34495e);
+    color: white;
+    font-size: 22px;
+    font-weight: 600;
+}
+
+/* ========================================
+SIDEBAR
+======================================== */
+
+.sidebar {
+    background: #ffffff;
+    padding: 20px;
+}
+
+.sidebar h3 {
+    margin-bottom: 10px;
+    font-size: 16px;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 5px;
+}
+
+/* ========================================
+BUTTONS
+======================================== */
+
+button {
+    width: 100%;
+    margin-bottom: 8px;
+    padding: 8px;
+    border: none;
+    border-radius: 6px;
+    background: #3498db;
+    color: white;
+    cursor: pointer;
+    font-size: 14px;
+    transition: 0.2s;
+}
+
+button:hover {
+    background: #2980b9;
+}
+
+/* Secondary buttons */
+
+#nextStepBtn,
+#prevStepBtn {
+    background: #27ae60;
+}
+
+#nextStepBtn:hover,
+#prevStepBtn:hover {
+    background: #219150;
+}
+
+/* Danger button */
+
+#clearGraphBtn {
+    background: #e74c3c;
+}
+
+#clearGraphBtn:hover {
+    background: #c0392b;
+}
+
+/* ========================================
+SELECT
+======================================== */
+
+select {
+    width: 100%;
+    padding: 6px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+/* ========================================
+SLIDER
+======================================== */
+
+#speedSlider {
+    width: 100%;
+}
+
+/* ========================================
+GRAPH AREA
+======================================== */
+
+.graph-area {
+    background: #f9fafc;
+    padding: 10px;
+}
+
+#graphCanvas {
+    border-radius: 8px;
+    border: 1px solid #ddd;
+}
+
+/* ========================================
+LOG PANEL
+======================================== */
+
+.log-panel {
+    background: #ffffff;
+}
+
+.log-panel h3 {
+    border-bottom: 1px solid #eee;
+    padding-bottom: 6px;
+}
+
+#logList {
+    max-height: 80vh;
+    overflow-y: auto;
+}
+
+#logList li {
+    background: #f7f8fb;
+    padding: 6px;
+    border-radius: 4px;
+    margin-bottom: 6px;
+    font-size: 13px;
+}

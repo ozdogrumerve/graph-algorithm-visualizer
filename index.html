@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Graph Algorithm Visualizer</title>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/layout.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/theme.css">
+
+    <!-- vis-network graph library -->
+    <script src="https://unpkg.com/vis-network/standalone/umd/vis-network.min.js"></script>
+</head>
+
+<body>
+
+<header class="header">
+    <h1>Graph Algorithm Visualizer</h1>
+</header>
+
+<div class="main-container">
+
+    <!-- Sidebar Controls -->
+    <aside class="sidebar">
+
+        <h3>Graph Controls</h3>
+
+        <button id="addNodeBtn">Add Node</button>
+        <button id="addEdgeBtn">Add Edge</button>
+        <button id="clearGraphBtn">Clear Graph</button>
+
+        <hr>
+
+        <h3>Import / Export</h3>
+
+        <button id="importGraphBtn">Import Graph</button>
+        <button id="exportGraphBtn">Export Graph</button>
+
+        <hr>
+
+        <h3>Algorithm</h3>
+
+        <select id="algorithmSelect">
+            <option value="dijkstra">Dijkstra</option>
+            <option value="bellmanFord">Bellman-Ford</option>
+            <option value="prim">Prim</option>
+            <option value="kruskal">Kruskal</option>
+        </select>
+
+        <hr>
+
+        <h3>Controls</h3>
+
+        <button id="startBtn">Start</button>
+        <button id="nextStepBtn">Next Step</button>
+        <button id="prevStepBtn">Back Step</button>
+        <button id="pauseBtn">Pause</button>
+        <button id="resetBtn">Reset</button>
+
+        <hr>
+
+        <h3>Speed</h3>
+
+        <input type="range" id="speedSlider" min="0.25" max="2" step="0.25" value="1">
+        <span id="speedValue">1x</span>
+
+    </aside>
+
+
+    <!-- Graph Visualization Area -->
+    <section class="graph-area">
+
+        <!-- vis-network graph container -->
+        <div id="graphCanvas"></div>
+
+    </section>
+
+
+    <!-- Algorithm Log Panel -->
+    <aside class="log-panel">
+
+        <h3>Algorithm Steps</h3>
+
+        <ul id="logList"></ul>
+
+    </aside>
+
+</div>
+
+<!-- JS Modules -->
+<script type="module" src="js/app.js"></script>
+
+</body>
+</html>
