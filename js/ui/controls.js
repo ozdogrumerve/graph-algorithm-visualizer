@@ -9,7 +9,8 @@ Buton eventlerini yönetir.
 export function initializeControls(
     graphManager,
     graphRenderer,
-    graphEditor
+    graphEditor,
+    stepController
 ) {
 
     /* ========================================
@@ -48,7 +49,11 @@ export function initializeControls(
 
     speedSlider.addEventListener("input", () => {
 
-        speedValue.innerText = speedSlider.value + "x";
+        const speed = speedSlider.value;
+
+        speedValue.innerText = speed + "x";
+
+        stepController.setSpeed(speed);
     });
 
 
@@ -61,14 +66,14 @@ export function initializeControls(
         () => console.log("Start algorithm");
 
     document.getElementById("nextStepBtn").onclick =
-        () => console.log("Next step");
+    () => stepController.nextStep();
 
     document.getElementById("prevStepBtn").onclick =
-        () => console.log("Back step");
+        () => stepController.previousStep();
 
     document.getElementById("pauseBtn").onclick =
-        () => console.log("Pause");
+        () => stepController.pause();
 
     document.getElementById("resetBtn").onclick =
-        () => console.log("Reset");
+        () => stepController.reset();
 }

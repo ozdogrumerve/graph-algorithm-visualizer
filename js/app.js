@@ -2,6 +2,8 @@ import { GraphManager } from "./graph/graphManager.js";
 import { GraphRenderer } from "./graph/graphRenderer.js";
 import { GraphEditor } from "./graph/graphEditor.js";
 import { initializeControls } from "./ui/controls.js";
+import { StepController } from "./visualization/stepController.js";
+import { LogPanel } from "./ui/logPanel.js";
 
 /*
 ========================================
@@ -35,10 +37,27 @@ document.addEventListener("DOMContentLoaded", () => {
     const graphEditor = new GraphEditor(graphManager, graphRenderer);
 
     /* ==============================
+       UI COMPONENTS
+    ============================== */
+
+    const logPanel = new LogPanel("logList");
+
+    const stepController = new StepController(
+        graphRenderer,
+        logPanel
+    );
+
+
+    /* ==============================
        UI CONTROLS
     ============================== */
 
-    initializeControls(graphManager, graphRenderer, graphEditor);
+    initializeControls(
+        graphManager,
+        graphRenderer,
+        graphEditor,
+        stepController
+    );
 
     /* ==============================
        INITIAL RENDER
