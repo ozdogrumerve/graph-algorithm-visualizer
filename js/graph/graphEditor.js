@@ -44,6 +44,43 @@ export class GraphEditor {
 
                 console.log("Start node selected:", nodeId);
 
+                /*
+                ============================
+                RESET ALL NODE COLORS
+                ============================
+                */
+
+                this.graphManager.nodes.forEach(node => {
+
+                    this.graphRenderer.nodes.update({
+                        id: node.id,
+                        color: {
+                            background: "#4a90e2",
+                            border: "#0e2750"
+                        }
+                    });
+
+                });
+
+                /*
+                ============================
+                HIGHLIGHT START NODE
+                ============================
+                */
+
+                this.graphRenderer.nodes.update({
+
+                    id: nodeId,
+
+                    color: {
+                        background: "#a8e6a1",
+                        border: "#2ecc71"
+                    },
+
+                    borderWidth: 2
+
+                });
+
             }
 
         });
