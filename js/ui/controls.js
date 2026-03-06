@@ -75,8 +75,16 @@ export function initializeControls(
             const startNode =
                 graphEditor.startNode || graphManager.nodes[0].id;
 
+            if (!graphManager.nodes.find(n => n.id === startNode)) {
+
+                alert("Start node no longer exists. Please select another node.");
+                return;
+
+            }
+
             steps = runDijkstra(graphManager, startNode);
         }
+
 
         stepController.loadSteps(steps);
 

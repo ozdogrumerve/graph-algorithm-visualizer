@@ -28,14 +28,17 @@ export class GraphRenderer {
             edges: {
                 arrows: "to",
 
+                smooth: {
+                    enabled: true,
+                    type: "curvedCW",
+                    roundness: 0.2
+                },
+
                 // Edge label ayarı
                 font: {
                     align: "middle",
                     size: 14
                 },
-
-                // Eğriyi kapatır
-                smooth: false,
 
                 width: 2
             },

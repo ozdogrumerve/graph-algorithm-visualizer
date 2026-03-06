@@ -135,28 +135,62 @@ export function runDijkstra(graphManager, startNode = 1) {
     ============================
     */
 
-    for (let nodeId in prev) {
+    // en uzak node'u bul (start dışındaki en büyük dist)
+    let target = null;
+    let maxDist = -Infinity;
 
-        const parent = prev[nodeId];
+    for (let nodeId in dist) {
 
-        if (parent !== null) {
+        const d = dist[nodeId];
 
-            const edge = graphManager.edges.find(
-                e => e.from === parent && e.to === Number(nodeId)
-            );
-
-            if (edge) {
-
-                steps.push({
-                    type: "highlightPath",
-                    edge: edge.id,
-                    message: `Shortest path edge ${parent} → ${nodeId}`
-                });
-
-            }
+        if (d !== Infinity && d > maxDist) {
+            maxDist = d;
+            target = Number(nodeId);
         }
+
     }
 
+    // path'i geriye doğru oluştur
+    const path = [];
+    let current = target;
+
+    while (current !== null) {
+
+        path.unshift(current);
+        current = prev[current];
+
+    }
+
+    // edge highlight
+    for (let i = 0; i < path.length - 1; i++) {
+
+        const from = path[i];
+        const to = path[i + 1];
+
+        const edge = graphManager.edges.find(
+            e =>
+                (e.from === from && e.to === to) ||
+                (e.from === to && e.to === from)
+        );
+
+        if (edge) {
+
+            steps.push({
+                type: "highlightPath",
+                edge: edge.id,
+                message: `Path edge ${from} → ${to}`
+            });
+
+        }
+
+    }
+
+    // tek mesaj
+    steps.push({
+        type: "log",
+        message: `Shortest path from ${startNode} to ${target}: ${path.join(" → ")} (cost = ${dist[target]})`
+    });
+    
     return steps;
 
 }
