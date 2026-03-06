@@ -35,9 +35,13 @@ export class GraphManager {
 
     addNode() {
 
-        const node = {
+         const node = {
             id: this.nodeIdCounter,
-            label: String(this.nodeIdCounter)
+            label: String(this.nodeIdCounter),
+
+            // node konumu (ilk başta null)
+            x: null,
+            y: null
         };
 
         this.nodes.push(node);

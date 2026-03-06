@@ -27,17 +27,34 @@ export class GraphRenderer {
 
             edges: {
                 arrows: "to",
+
+                // Edge label ayarı
                 font: {
-                    align: "top"
-                }
+                    align: "middle",
+                    size: 14
+                },
+
+                // Eğriyi kapatır
+                smooth: false,
+
+                width: 2
             },
 
             nodes: {
                 shape: "circle",
                 size: 20,
+
                 font: {
-                    size: 16
-                }
+                    size: 16,
+                    color: "#ffffff"
+                },
+
+                color: {
+                    background: "#4a90e2",
+                    border: "#0e2750"
+                },
+
+                borderWidth: 2
             }
         };
 
