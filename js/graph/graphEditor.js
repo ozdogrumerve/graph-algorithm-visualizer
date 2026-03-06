@@ -23,40 +23,7 @@ export class GraphEditor {
 
         this.initializeNetworkEvents();
 
-        /*
-        ====================================
-        DELETE NODE WITH KEYBOARD
-        ====================================
-        */
-
-        document.addEventListener("keydown", (event) => {
-
-            if (event.key === "Delete" || event.key === "Backspace") {
-
-                const selectedNodes =
-                    this.graphRenderer.network.getSelectedNodes();
-
-                const selectedEdges =
-                    this.graphRenderer.network.getSelectedEdges();
-
-
-                // Node silme
-                if (selectedNodes.length > 0) {
-
-                    this.deleteNode(selectedNodes[0]);
-
-                }
-
-                // Edge silme
-                else if (selectedEdges.length > 0) {
-
-                    this.deleteEdge(selectedEdges[0]);
-
-                }
-
-            }
-
-        });
+        
 
         /*
         ====================================

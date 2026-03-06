@@ -41,6 +41,51 @@ export function initializeControls(
         }
     });
 
+    /*
+    ====================================
+    DELETE NODE BUTTON
+    ====================================
+    */
+
+    document.getElementById("deleteNodeBtn").onclick = () => {
+
+        const selectedNodes =
+            graphRenderer.network.getSelectedNodes();
+
+        if (selectedNodes.length === 0) {
+
+            alert("Select a node to delete.");
+            return;
+
+        }
+
+        graphEditor.deleteNode(selectedNodes[0]);
+
+    };
+
+
+    /*
+    ====================================
+    DELETE EDGE BUTTON
+    ====================================
+    */
+
+    document.getElementById("deleteEdgeBtn").onclick = () => {
+
+        const selectedEdges =
+            graphRenderer.network.getSelectedEdges();
+
+        if (selectedEdges.length === 0) {
+
+            alert("Select an edge to delete.");
+            return;
+
+        }
+
+        graphEditor.deleteEdge(selectedEdges[0]);
+
+    };
+
 
     /* ========================================
        SPEED CONTROL
@@ -61,7 +106,6 @@ export function initializeControls(
 
     /* ========================================
        PLACEHOLDER CONTROLS
-       (algoritmalar sonraki aşamada)
     ======================================== */
 
     document.getElementById("startBtn").onclick = () => {
