@@ -4,6 +4,31 @@ DIJKSTRA ALGORITHM (STEP GENERATOR)
 ====================================
 */
 
+function formatDistances(distances, nodes) {
+
+    let result = "dist = [ -, ";
+
+    nodes.forEach((node, index) => {
+
+        const d = distances[node.id];
+
+        if (d === Infinity) {
+            result += "∞";
+        } else {
+            result += d;
+        }
+
+        if (index < nodes.length - 1) {
+            result += ", ";
+        }
+
+    });
+
+    result += " ]";
+
+    return result;
+}
+
 export function runDijkstra(graphManager, startNode = 1) {
 
     const nodes = graphManager.nodes;
@@ -23,6 +48,11 @@ export function runDijkstra(graphManager, startNode = 1) {
     });
 
     dist[startNode] = 0;
+    
+    steps.push({
+        type: "log",
+        message: formatDistances(dist, nodes)
+    });
 
     steps.push({
         type: "visitNode",
@@ -81,6 +111,11 @@ export function runDijkstra(graphManager, startNode = 1) {
 
                 dist[neighbor.node] = newDist;
                 prev[neighbor.node] = minNode;
+
+                steps.push({
+                    type: "log",
+                    message: formatDistances(dist, nodes)
+                });
 
                 steps.push({
                     type: "updateDistance",
