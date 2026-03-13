@@ -32,6 +32,8 @@ function formatDistances(distances, nodes) {
 export function runDijkstra(graphManager, startNode = 1) {
 
     const nodes = graphManager.nodes;
+    const edges = graphManager.edges;
+
     const steps = [];
 
     const dist = {};
@@ -48,7 +50,7 @@ export function runDijkstra(graphManager, startNode = 1) {
     });
 
     dist[startNode] = 0;
-    
+
     steps.push({
         type: "log",
         message: formatDistances(dist, nodes)
@@ -74,6 +76,7 @@ export function runDijkstra(graphManager, startNode = 1) {
                 minNode = Number(nodeId);
 
             }
+
         }
 
         if (minNode === null) break;
@@ -86,31 +89,29 @@ export function runDijkstra(graphManager, startNode = 1) {
             message: `Visit node ${minNode}`
         });
 
-        const neighbors = graphManager.getNeighbors(minNode);
+        /* sadece forward edges */
 
-        neighbors.forEach(neighbor => {
+        const outgoing = edges.filter(e => e.from === minNode);
 
-            if (visited[neighbor.node]) return;
+        outgoing.forEach(edge => {
 
-            const weight = Number(neighbor.weight);
+            const neighbor = edge.to;
+
+            if (visited[neighbor]) return;
+
+            const weight = Number(edge.weight);
             const newDist = dist[minNode] + weight;
-
-            const edge = graphManager.edges.find(
-                e => e.from === minNode && e.to === neighbor.node
-            );
-
-            const edgeId = edge ? edge.id : null;
 
             steps.push({
                 type: "relaxEdge",
-                edge: edgeId,
-                message: `Relax edge ${minNode} → ${neighbor.node}`
+                edge: edge.id,
+                message: `Relax edge ${minNode} → ${neighbor}`
             });
 
-            if (newDist < dist[neighbor.node]) {
+            if (newDist < dist[neighbor]) {
 
-                dist[neighbor.node] = newDist;
-                prev[neighbor.node] = minNode;
+                dist[neighbor] = newDist;
+                prev[neighbor] = minNode;
 
                 steps.push({
                     type: "log",
@@ -119,8 +120,8 @@ export function runDijkstra(graphManager, startNode = 1) {
 
                 steps.push({
                     type: "updateDistance",
-                    node: neighbor.node,
-                    message: `dist[${neighbor.node}] = ${newDist}`
+                    node: neighbor,
+                    message: `dist[${neighbor}] = ${newDist}`
                 });
 
             }
@@ -131,7 +132,7 @@ export function runDijkstra(graphManager, startNode = 1) {
 
     /*
     ============================
-    SHORTEST PATH TREE HIGHLIGHT
+    SHORTEST PATH
     ============================
     */
 
@@ -144,8 +145,10 @@ export function runDijkstra(graphManager, startNode = 1) {
         const d = dist[nodeId];
 
         if (d !== Infinity && d > maxDist) {
+
             maxDist = d;
             target = Number(nodeId);
+
         }
 
     }
@@ -167,10 +170,8 @@ export function runDijkstra(graphManager, startNode = 1) {
         const from = path[i];
         const to = path[i + 1];
 
-        const edge = graphManager.edges.find(
-            e =>
-                (e.from === from && e.to === to) ||
-                (e.from === to && e.to === from)
+        const edge = edges.find(
+            e => e.from === from && e.to === to
         );
 
         if (edge) {
@@ -185,12 +186,11 @@ export function runDijkstra(graphManager, startNode = 1) {
 
     }
 
-    // tek mesaj
     steps.push({
         type: "log",
         message: `Shortest path from ${startNode} to ${target}: ${path.join(" → ")} (cost = ${dist[target]})`
     });
-    
+
     return steps;
 
 }
