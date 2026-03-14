@@ -94,6 +94,17 @@ export class GraphEditor {
                     return;
                 }
 
+                // eski start node'u mavi yap
+                if (this.startNode !== null) {
+                    this.graphRenderer.nodes.update({
+                        id: this.startNode,
+                        color: {
+                            background: "#4a90e2",
+                            border: "#0e2750"
+                        }
+                    });
+                }
+
                 this.startNode = nodeId;
 
                 document.getElementById("startNodeHint").innerText =
@@ -124,6 +135,17 @@ export class GraphEditor {
                 if (nodeId === this.startNode) {
                     alert("Target node cannot be the same as start node");
                     return;
+                }
+
+                // eski target node'u mavi yap
+                if (this.targetNode !== null) {
+                    this.graphRenderer.nodes.update({
+                        id: this.targetNode,
+                        color: {
+                            background: "#4a90e2",
+                            border: "#0e2750"
+                        }
+                    });
                 }
 
                 this.targetNode = nodeId;
@@ -282,7 +304,7 @@ export class GraphEditor {
     */
 
     clearGraph() {
-        
+
         this.startNode = null;
         this.targetNode = null;
         this.firstNode = null;
