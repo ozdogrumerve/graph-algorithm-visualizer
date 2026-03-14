@@ -19,72 +19,50 @@ export class GraphEditor {
 
         this.edgeMode = false;
         this.firstNode = null;
+
+        this.selectStartMode = false;
+        this.selectTargetMode = false;
+
         this.startNode = null;
+        this.targetNode = null;
+
 
         this.initializeNetworkEvents();
+        this.initializeButtons();
 
-        
+    }
 
-        /*
-        ====================================
-        SELECT START NODE
-        ====================================
-        */
+    /*
+    ====================================
+    BUTTON EVENTS
+    ====================================
+    */
 
-        this.graphRenderer.network.on("click", (params) => {
+    initializeButtons() {
 
-            if (params.nodes.length > 0) {
+        const startBtn = document.getElementById("startNodeHint");
+        const targetBtn = document.getElementById("targetNodeHint");
 
-                const nodeId = params.nodes[0];
+        startBtn.addEventListener("click", () => {
 
-                this.startNode = nodeId;
-                
-                document.getElementById("startNodeHint").innerText =
-                    "Start node: " + nodeId;
+            this.selectStartMode = true;
+            this.selectTargetMode = false;
 
-                console.log("Start node selected:", nodeId);
-
-                /*
-                ============================
-                RESET ALL NODE COLORS
-                ============================
-                */
-
-                this.graphManager.nodes.forEach(node => {
-
-                    this.graphRenderer.nodes.update({
-                        id: node.id,
-                        color: {
-                            background: "#4a90e2",
-                            border: "#0e2750"
-                        }
-                    });
-
-                });
-
-                /*
-                ============================
-                HIGHLIGHT START NODE
-                ============================
-                */
-
-                this.graphRenderer.nodes.update({
-
-                    id: nodeId,
-
-                    color: {
-                        background: "#a8e6a1",
-                        border: "#2ecc71"
-                    },
-
-                    borderWidth: 2
-
-                });
-
-            }
+            alert("Click a node to select START node");
 
         });
+
+        targetBtn.addEventListener("click", () => {
+
+            this.selectTargetMode = true;
+            this.selectStartMode = false;
+
+            alert("Click a node to select TARGET node");
+
+        });
+
     }
+
 
     /*
     ========================================
@@ -99,12 +77,81 @@ export class GraphEditor {
 
         network.on("click", (params) => {
 
-            // Eğer edge ekleme modunda değilsek çık
-            if (!this.edgeMode) return;
-
             if (params.nodes.length === 0) return;
 
             const nodeId = params.nodes[0];
+
+            /*
+            ===============================
+            START NODE SELECTION
+            ===============================
+            */
+
+            if (this.selectStartMode) {
+
+                if (nodeId === this.targetNode) {
+                    alert("Start node cannot be the same as target node");
+                    return;
+                }
+
+                this.startNode = nodeId;
+
+                document.getElementById("startNodeHint").innerText =
+                    "Start node: " + nodeId;
+
+                this.selectStartMode = false;
+
+                this.graphRenderer.nodes.update({
+                    id: nodeId,
+                    color: {
+                        background: "#a8e6a1",
+                        border: "#2ecc71"
+                    },
+                    borderWidth: 2
+                });
+
+                return;
+            }
+
+            /*
+            ===============================
+            TARGET NODE SELECTION
+            ===============================
+            */
+
+            if (this.selectTargetMode) {
+
+                if (nodeId === this.startNode) {
+                    alert("Target node cannot be the same as start node");
+                    return;
+                }
+
+                this.targetNode = nodeId;
+
+                document.getElementById("targetNodeHint").innerText =
+                    "Target node: " + nodeId;
+
+                this.selectTargetMode = false;
+
+                this.graphRenderer.nodes.update({
+                    id: nodeId,
+                    color: {
+                        background: "#ff7675",
+                        border: "#d63031"
+                    },
+                    borderWidth: 2
+                });
+
+                return;
+            }
+
+            /*
+            ===============================
+            EDGE MODE
+            ===============================
+            */
+
+            if (!this.edgeMode) return;
 
             if (this.firstNode === null) {
 
@@ -156,6 +203,47 @@ export class GraphEditor {
 
 
     /*
+    ====================================
+    UPDATE NODE COLORS
+    ====================================
+    */
+
+    updateNodeColors() {
+
+        this.graphManager.nodes.forEach(node => {
+
+            let background = "#4a90e2";
+            let border = "#0e2750";
+
+            if (node.id === this.startNode) {
+
+                background = "#a8e6a1";
+                border = "#2ecc71";
+
+            }
+
+            if (node.id === this.targetNode) {
+
+                background = "#ff7675";
+                border = "#d63031";
+
+            }
+
+            this.graphRenderer.nodes.update({
+                id: node.id,
+                color: {
+                    background: background,
+                    border: border
+                },
+                borderWidth: 2
+            });
+
+        });
+
+    }
+
+
+    /*
     ========================================
     ADD NODE
     ========================================
@@ -168,6 +256,7 @@ export class GraphEditor {
         console.log("Node added:", node);
 
         this.updateGraph();
+        this.updateNodeColors();
     }
 
 
@@ -194,6 +283,15 @@ export class GraphEditor {
 
     clearGraph() {
 
+        this.startNode = null;
+        this.targetNode = null;
+
+        document.getElementById("startNodeHint").innerText =
+            "Select Start Node";
+
+        document.getElementById("targetNodeHint").innerText =
+            "Select Target Node";
+
         this.graphManager.clearGraph();
         this.updateGraph();
     }
@@ -211,6 +309,8 @@ export class GraphEditor {
             this.graphManager.nodes,
             this.graphManager.edges
         );
+
+        this.updateNodeColors();
     }
 
     /*

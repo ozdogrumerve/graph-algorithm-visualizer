@@ -94,7 +94,7 @@ export class GraphManager {
     */
 
     clearGraph() {
-
+        
         this.nodes = [];
         this.edges = [];
         this.nodeIdCounter = 1;

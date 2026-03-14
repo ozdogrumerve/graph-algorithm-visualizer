@@ -6,7 +6,7 @@ DIJKSTRA ALGORITHM (STEP GENERATOR)
 
 function formatDistances(distances, nodes) {
 
-    let result = "dist = [ -, ";
+    let result = "dist = [ ";
 
     nodes.forEach((node, index) => {
 
@@ -29,7 +29,7 @@ function formatDistances(distances, nodes) {
     return result;
 }
 
-export function runDijkstra(graphManager, startNode = 1) {
+export function runDijkstra(graphManager, startNode = 1, targetNode = null) {
 
     const nodes = graphManager.nodes;
     const edges = graphManager.edges;
@@ -136,61 +136,51 @@ export function runDijkstra(graphManager, startNode = 1) {
     ============================
     */
 
-    // en uzak node'u bul (start dışındaki en büyük dist)
-    let target = null;
-    let maxDist = -Infinity;
+    if (targetNode !== null && targetNode !== startNode) {
 
-    for (let nodeId in dist) {
+        if (dist[targetNode] === Infinity) {
+            steps.push({
+                type: "log",
+                message: `Target node ${targetNode} is unreachable from ${startNode}`
+            });
+        } else {
+            // path'i geriye doğru oluştur
+            const path = [];
+            let current = targetNode;
 
-        const d = dist[nodeId];
+            while (current !== null) {
+                path.unshift(current);
+                current = prev[current];
+            }
 
-        if (d !== Infinity && d > maxDist) {
+            // edge highlight
+            for (let i = 0; i < path.length - 1; i++) {
+                const from = path[i];
+                const to = path[i + 1];
 
-            maxDist = d;
-            target = Number(nodeId);
+                const edge = edges.find(e => e.from === from && e.to === to);
 
-        }
-
-    }
-
-    // path'i geriye doğru oluştur
-    const path = [];
-    let current = target;
-
-    while (current !== null) {
-
-        path.unshift(current);
-        current = prev[current];
-
-    }
-
-    // edge highlight
-    for (let i = 0; i < path.length - 1; i++) {
-
-        const from = path[i];
-        const to = path[i + 1];
-
-        const edge = edges.find(
-            e => e.from === from && e.to === to
-        );
-
-        if (edge) {
+                if (edge) {
+                    steps.push({
+                        type: "highlightPath",
+                        edge: edge.id,
+                        message: `Path edge ${from} → ${to}`
+                    });
+                }
+            }
 
             steps.push({
-                type: "highlightPath",
-                edge: edge.id,
-                message: `Path edge ${from} → ${to}`
+                type: "log",
+                message: `Shortest path from ${startNode} to ${targetNode}: ${path.join(" → ")} (cost = ${dist[targetNode]})`
             });
-
         }
 
+    } else if (targetNode === null) {
+        steps.push({
+            type: "log",
+            message: `All shortest distances from node ${startNode} calculated. No specific target selected.`
+        });
     }
 
-    steps.push({
-        type: "log",
-        message: `Shortest path from ${startNode} to ${target}: ${path.join(" → ")} (cost = ${dist[target]})`
-    });
-
     return steps;
-
 }
