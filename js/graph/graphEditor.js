@@ -282,9 +282,14 @@ export class GraphEditor {
     */
 
     clearGraph() {
-
+        
         this.startNode = null;
         this.targetNode = null;
+        this.firstNode = null;
+
+        this.edgeMode = false;
+        this.selectStartMode = false;
+        this.selectTargetMode = false;
 
         document.getElementById("startNodeHint").innerText =
             "Select Start Node";

@@ -1,4 +1,7 @@
 import { runDijkstra } from "../algorithms/dijkstra.js";
+import { exportGraphImage } from "../io/exportGraph.js";
+import { importGraph } from "../io/importGraph.js";
+import { exportGraph } from "../io/exportGraph.js";
 
 /*
 ========================================
@@ -182,121 +185,30 @@ export function initializeControls(
 
     /*
     ====================================
-    EXPORT GRAPH WITH INFO
-    ====================================
-    */
-
-    document.getElementById("exportImageBtn").onclick = () => {
-
-        const networkCanvas =
-            graphRenderer.network.canvas.frame.canvas;
-
-        const graphImage = networkCanvas.toDataURL("image/png");
-
-        const canvas = document.createElement("canvas");
-        const ctx = canvas.getContext("2d");
-
-        const width = networkCanvas.width;
-        const height = networkCanvas.height;
-
-        canvas.width = width;
-        canvas.height = height + 120;
-
-        const img = new Image();
-
-        img.onload = () => {
-
-            // arka plan
-            ctx.fillStyle = "white";
-            ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-            // başlık
-            ctx.fillStyle = "#222";
-            ctx.font = "bold 22px Arial";
-            ctx.fillText("Dijkstra Visualization", 20, 30);
-
-            // start node
-            const startNode = graphEditor.startNode || "Not selected";
-
-            ctx.font = "16px Arial";
-            ctx.fillText(`Start Node: ${startNode}`, 20, 60);
-
-            // shortest path bilgisi
-            const logItems =
-                document.querySelectorAll("#logList li");
-
-            let pathText = "";
-            let costText = "";
-
-            logItems.forEach(item => {
-
-                const text = item.innerText;
-
-                if (text.includes("Shortest path")) {
-                    pathText = text;
-                }
-
-            });
-
-            ctx.fillText(pathText, 20, 85);
-
-            // graph görüntüsünü ekle
-            ctx.drawImage(img, 0, 120);
-
-            const link = document.createElement("a");
-
-            link.download = "dijkstra-visualization.png";
-            link.href = canvas.toDataURL("image/png");
-
-            link.click();
-
-        };
-
-        img.src = graphImage;
-
-    };
-
-    /*
-    ====================================
     EXPORT GRAPH AS JSON
     ====================================
     */
 
     document.getElementById("exportGraphBtn").onclick = () => {
 
-        const graphData = {
-
-            nodes: graphManager.nodes.map(n => ({
-                id: n.id
-            })),
-
-            edges: graphManager.edges.map(e => ({
-                from: e.from,
-                to: e.to,
-                weight: e.weight
-            }))
-
-        };
-
-        const json = JSON.stringify(graphData, null, 2);
-
-        const blob = new Blob([json], {
-            type: "application/json"
-        });
-
-        const url = URL.createObjectURL(blob);
-
-        const link = document.createElement("a");
-
-        link.href = url;
-        link.download = "graph.json";
-
-        link.click();
-
-        URL.revokeObjectURL(url);
+        exportGraph(graphManager);
 
     };
 
+
+    /*
+    ====================================
+    EXPORT GRAPH WITH INFO
+    ====================================
+    */
+
+    document.getElementById("exportImageBtn").onclick = () => {
+
+        exportGraphImage(graphRenderer, graphEditor);
+
+    };
+
+    
     /*
     ====================================
     DOWNLOAD SAMPLE JSON
@@ -354,38 +266,8 @@ export function initializeControls(
 
         if (!file) return;
 
-        const reader = new FileReader();
-
-        reader.onload = function(e) {
-
-            try {
-
-                const graphData = JSON.parse(e.target.result);
-
-                graphManager.nodes = graphData.nodes.map(n => ({
-                    id: n.id,
-                    label: String(n.id)
-                }));
-
-                graphManager.edges = graphData.edges.map((e, index) => ({
-                    id: index + 1,
-                    from: e.from,
-                    to: e.to,
-                    label: String(e.weight),
-                    weight: e.weight
-                }));
-
-                graphEditor.updateGraph();
-
-            } catch(err) {
-
-                alert("Invalid graph file format.");
-
-            }
-
-        };
-
-        reader.readAsText(file);
+        importGraph(file, graphManager, graphEditor);
 
     });
+
 }

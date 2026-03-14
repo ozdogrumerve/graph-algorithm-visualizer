@@ -131,35 +131,4 @@ export class GraphManager {
 
         return neighbors;
     }
-
-
-    /*
-    Export graph as JSON
-    */
-
-    exportGraph() {
-
-        return JSON.stringify({
-            nodes: this.nodes,
-            edges: this.edges,
-            directed: this.directed
-        }, null, 2);
-    }
-
-
-    /*
-    Import graph from JSON
-    */
-
-    importGraph(jsonData) {
-
-        const data = JSON.parse(jsonData);
-
-        this.nodes = data.nodes;
-        this.edges = data.edges;
-        this.directed = data.directed;
-
-        this.nodeIdCounter =
-            Math.max(...this.nodes.map(n => n.id)) + 1;
-    }
 }
