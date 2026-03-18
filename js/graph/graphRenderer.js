@@ -141,7 +141,8 @@ export class GraphRenderer {
             this.nodes.update({
                 id: node.id,
                 color: {
-                    background: "#4a90e2"
+                    background: "#4a90e2",
+                    border: "#0e2750",
                 }
             });
 
@@ -156,7 +157,7 @@ export class GraphRenderer {
                 id: edge.id,
                 color: {
                     color: "#848484"
-                }
+                },
             });
 
         });

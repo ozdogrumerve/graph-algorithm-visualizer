@@ -123,6 +123,23 @@ export function initializeControls(
 
         const algorithm = document.getElementById("algorithmSelect").value;
 
+        algorithmSelect.addEventListener("change", () => {
+
+            // 1. step’leri sıfırla
+            stepController.reset();
+
+            // 2. start & target sıfırla
+            graphEditor.startNode = null;
+            graphEditor.targetNode = null;
+
+            // 3. UI textleri sıfırla (varsa)
+            const startText = document.getElementById("startNodeHint");
+            const targetText = document.getElementById("targetNodeHint");
+
+            // 4. node renklerini resetle
+            graphRenderer.resetStyles();
+        });
+
         let steps = [];
 
         if (algorithm === "dijkstra") {
