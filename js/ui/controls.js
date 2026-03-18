@@ -1,6 +1,7 @@
 import { runDijkstra } from "../algorithms/dijkstra.js";
 import { bellmanFord } from "../algorithms/bellmanFord.js";
 import { runKruskal } from "../algorithms/kruskal.js";
+import { runPrim } from "../algorithms/prim.js";
 import { exportGraphImage } from "../io/exportGraph.js";
 import { importGraph } from "../io/importGraph.js";
 import { exportGraph } from "../io/exportGraph.js";
@@ -46,8 +47,10 @@ export function initializeControls(
         if (confirm("Clear entire graph?")) {
 
             graphEditor.clearGraph();
+            stepController.reset();   
         }
     });
+
 
     /*
     ====================================
@@ -179,6 +182,18 @@ export function initializeControls(
             steps = runKruskal(graphManager);
         }
 
+        if (algorithm === "prim") {
+
+            const startNode =
+                graphEditor.startNode || graphManager.nodes[0].id;
+
+            if (!graphManager.nodes.find(n => n.id === startNode)) {
+                alert("Start node no longer exists.");
+                return;
+            }
+
+            steps = runPrim(graphManager, startNode);
+        }
 
         stepController.loadSteps(steps);
         stepController.play(); 
@@ -337,6 +352,12 @@ export function initializeControls(
             targetBtn.classList.add("disabled");
 
 
+        } else if (algorithm === "prim") {
+
+            startBtn.innerText = "Select Start Node";
+            targetBtn.innerText = "Target not used in Prim";
+            startBtn.classList.remove("disabled");
+            targetBtn.classList.add("disabled");
         } else {
 
             startBtn.innerText = "Select Start Node";
