@@ -173,8 +173,8 @@ export function initializeControls(
 
 
         stepController.loadSteps(steps);
-
         stepController.play(); 
+        document.getElementById("playBtn").innerText = "Pause";
 
     };
 
