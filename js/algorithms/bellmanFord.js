@@ -1,3 +1,9 @@
+/*
+====================================
+BELLMAN FORD ALGORITHM (STEP GENERATOR)
+====================================
+*/
+
 function formatDistances(distances, nodes) {
 
     let result = "dist = [ ";

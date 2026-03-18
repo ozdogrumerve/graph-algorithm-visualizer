@@ -1,5 +1,6 @@
 import { runDijkstra } from "../algorithms/dijkstra.js";
 import { bellmanFord } from "../algorithms/bellmanFord.js";
+import { runKruskal } from "../algorithms/kruskal.js";
 import { exportGraphImage } from "../io/exportGraph.js";
 import { importGraph } from "../io/importGraph.js";
 import { exportGraph } from "../io/exportGraph.js";
@@ -26,6 +27,9 @@ export function initializeControls(
     const addNodeBtn = document.getElementById("addNodeBtn");
     const addEdgeBtn = document.getElementById("addEdgeBtn");
     const clearGraphBtn = document.getElementById("clearGraphBtn");
+
+    const startBtn = document.getElementById("startNodeHint");
+    const targetBtn = document.getElementById("targetNodeHint");
 
     addNodeBtn.addEventListener("click", () => {
 
@@ -168,7 +172,11 @@ export function initializeControls(
             }
 
             steps = result.steps;
-            console.log("BF steps:", steps);
+        }
+
+        if (algorithm === "kruskal") {
+
+            steps = runKruskal(graphManager);
         }
 
 
@@ -308,5 +316,34 @@ export function initializeControls(
         importGraph(file, graphManager, graphEditor);
 
     });
+
+    /*
+    ====================================
+    TARGET START BUTTON TEXT
+    ====================================
+    */
+
+    const algorithmSelect = document.getElementById("algorithmSelect");
+
+    algorithmSelect.onchange = () => {
+
+        const algorithm = algorithmSelect.value;
+
+        if (algorithm === "kruskal") {
+
+            startBtn.innerText = "Start not used in Kruskal";
+            targetBtn.innerText = "Target not used in Kruskal";
+            startBtn.classList.add("disabled");
+            targetBtn.classList.add("disabled");
+
+
+        } else {
+
+            startBtn.innerText = "Select Start Node";
+            targetBtn.innerText = "Select Target Node";
+            startBtn.classList.remove("disabled");
+            targetBtn.classList.remove("disabled");
+        }
+    };
 
 }
