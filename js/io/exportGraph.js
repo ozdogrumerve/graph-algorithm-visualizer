@@ -45,7 +45,7 @@ Export Graph Image with Info
 ========================================
 */
 
-export function exportGraphImage(graphRenderer, graphEditor) {
+export function exportGraphImage(graphRenderer, graphEditor, algorithm) {
 
     const networkCanvas =
         graphRenderer.network.canvas.frame.canvas;
@@ -59,7 +59,7 @@ export function exportGraphImage(graphRenderer, graphEditor) {
     const height = networkCanvas.height;
 
     canvas.width = width;
-    canvas.height = height + 120;
+    canvas.height = height + 140;
 
     const img = new Image();
 
@@ -69,41 +69,59 @@ export function exportGraphImage(graphRenderer, graphEditor) {
         ctx.fillStyle = "white";
         ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-        // title
+        // =========================
+        // TITLE
+        // =========================
         ctx.fillStyle = "#222";
         ctx.font = "bold 22px Arial";
-        ctx.fillText("Dijkstra Visualization", 20, 30);
+        ctx.fillText(`${algorithm.toUpperCase()} Visualization`, 20, 30);
 
-        // start node
-        const startNode = graphEditor.startNode || "Not selected";
+        // =========================
+        // START NODE (varsa)
+        // =========================
+        if (algorithm !== "kruskal") {
 
-        ctx.font = "16px Arial";
-        ctx.fillText(`Start Node: ${startNode}`, 20, 60);
+            const startNode = graphEditor.startNode || "Not selected";
 
-        // shortest path info
+            ctx.font = "16px Arial";
+            ctx.fillText(`Start Node: ${startNode}`, 20, 60);
+        }
+
+        // =========================
+        // LOG INFO
+        // =========================
         const logItems =
             document.querySelectorAll("#logList li");
 
-        let pathText = "";
+        let infoText = "";
 
         logItems.forEach(item => {
 
             const text = item.innerText;
 
+            // Dijkstra & Bellman
             if (text.includes("Shortest path")) {
-                pathText = text;
+                infoText = text;
+            }
+
+            // Kruskal & Prim
+            if (text.includes("MST completed")) {
+                infoText = text;
             }
 
         });
 
-        ctx.fillText(pathText, 20, 85);
+        ctx.font = "16px Arial"; 
+        ctx.fillText(infoText, 20, 90);
 
-        // draw graph
+        // =========================
+        // GRAPH DRAW
+        // =========================
         ctx.drawImage(img, 0, 120);
 
         const link = document.createElement("a");
 
-        link.download = "dijkstra-visualization.png";
+        link.download = `${algorithm}-visualization.png`;
         link.href = canvas.toDataURL("image/png");
 
         link.click();
@@ -111,5 +129,4 @@ export function exportGraphImage(graphRenderer, graphEditor) {
     };
 
     img.src = graphImage;
-
 }

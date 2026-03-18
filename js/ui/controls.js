@@ -266,7 +266,8 @@ export function initializeControls(
 
     document.getElementById("exportImageBtn").onclick = () => {
 
-        exportGraphImage(graphRenderer, graphEditor);
+        const algorithm = document.getElementById("algorithmSelect").value;
+        exportGraphImage(graphRenderer, graphEditor, algorithm);
 
     };
 
