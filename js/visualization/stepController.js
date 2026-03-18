@@ -215,6 +215,10 @@ export class StepController {
                     step.node,
                     "#f1c40f"
                 );
+                
+            break;
+
+            case "log":
 
             break;
         }

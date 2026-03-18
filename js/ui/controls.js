@@ -1,4 +1,5 @@
 import { runDijkstra } from "../algorithms/dijkstra.js";
+import { bellmanFord } from "../algorithms/bellmanFord.js";
 import { exportGraphImage } from "../io/exportGraph.js";
 import { importGraph } from "../io/importGraph.js";
 import { exportGraph } from "../io/exportGraph.js";
@@ -122,6 +123,9 @@ export function initializeControls(
             const startNode =
                 graphEditor.startNode || graphManager.nodes[0].id;
 
+            const targetNode = 
+                graphEditor.targetNode;
+
             if (!graphManager.nodes.find(n => n.id === startNode)) {
 
                 alert("Start node no longer exists. Please select another node.");
@@ -129,7 +133,42 @@ export function initializeControls(
 
             }
 
-            steps = runDijkstra(graphManager, startNode);
+            // SADECE varsa kontrol et
+            if (targetNode !== null && !graphManager.nodes.find(n => n.id === targetNode)) {
+                alert("Target node no longer exists. Please select another node.");
+                return;
+            }
+
+            steps = runDijkstra(graphManager, startNode, targetNode);
+        }
+
+        if (algorithm === "bellmanFord") {
+
+            const startNode =
+                graphEditor.startNode || graphManager.nodes[0].id;
+
+            const targetNode = 
+                graphEditor.targetNode;
+
+            if (!graphManager.nodes.find(n => n.id === startNode)) {
+                alert("Start node no longer exists. Please select another node.");
+                return;
+            }
+
+           // SADECE varsa kontrol et
+            if (targetNode !== null && !graphManager.nodes.find(n => n.id === targetNode)) {
+                alert("Target node no longer exists. Please select another node.");
+                return;
+            }
+
+            const result = bellmanFord(graphManager, startNode, targetNode);
+
+            if (result.hasNegativeCycle) {
+                alert("Graph contains a negative weight cycle!");
+            }
+
+            steps = result.steps;
+            console.log("BF steps:", steps);
         }
 
 
