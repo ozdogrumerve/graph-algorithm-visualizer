@@ -9,21 +9,21 @@
 *,
 *::before,
 *::after {
-    box-sizing: border-box;
+    box-sizing: border-box; /* Elemanların genişlik ve yüksekliğini padding + border dahil hesapla */
 }
 
 /* Margin ve padding sıfırlama */
 
 * {
-    margin: 0;
-    padding: 0;
+    margin: 0; /* Tüm elemanların dış boşluğunu sıfırla */
+    padding: 0;   /* Tüm elemanların iç boşluğunu sıfırla */
 }
 
 /* Body ayarları */
 
 body {
-    line-height: 1.5;
-    -webkit-font-smoothing: antialiased;
+    line-height: 1.5; /* Satır yüksekliğini standartlaştır (okunabilirlik için) */
+    -webkit-font-smoothing: antialiased;   /* Daha pürüzsüz yazı (özellikle Mac'te) */
 }
 
 /* Media elementleri */
@@ -33,8 +33,8 @@ picture,
 video,
 canvas,
 svg {
-    display: block;
-    max-width: 100%;
+    display: block; /* Resim ve medya elemanlarını blok seviyesine getir */
+    max-width: 100%; /* Taşmayı önlemek için genişliği %100 yap */
 }
 
 /* Form elementleri */
@@ -43,34 +43,34 @@ input,
 button,
 textarea,
 select {
-    font: inherit;
-}
+    font: inherit; /* Form elemanları ana yazı tipini miras alsın */
+} 
 
 /* Button default style kaldırma */
 
 button {
-    background: none;
-    border: none;
-    cursor: pointer;
+    background: none;                   /* Tarayıcının varsayılan buton arka planını kaldır */
+    border: none;                       /* Tarayıcının varsayılan kenarlığını kaldır */
+    cursor: pointer;                    /* Fare üzerine gelince el işareti çıksın */
 }
 
 /* Link default */
 
 a {
-    text-decoration: none;
-    color: inherit;
+    text-decoration: none; /* Linklerin alt çizgisini kaldır */
+    color: inherit;  /* Link rengini bulunduğu yerden miras alsın */
 }
 
 /* Liste default */
 
 ul,
 ol {
-    list-style: none;
+    list-style: none; /* Madde işaretlerini ve numaralandırmayı kaldır */
 }
 
 /* Table reset */
 
 table {
-    border-collapse: collapse;
-    border-spacing: 0;
+    border-collapse: collapse;          /* Tablo hücreleri arasındaki boşlukları kaldır */
+    border-spacing: 0;                  /* Tablo hücreleri arasındaki mesafeyi sıfırla */
 }

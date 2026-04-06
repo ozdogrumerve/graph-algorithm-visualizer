@@ -3,9 +3,9 @@ DIVIDERS
 ====================================== */
 
 hr {
-    margin: 15px 0;
-    border: none;
-    border-top: 1px solid #eee;
+    margin: 15px 0; /* Üst ve alt boşluk */
+    border: none; /* Varsayılan border'ı kaldır */
+    border-top: 1px solid #eee; /* Üstte ince gri çizgi oluştur */
 }
 
 /* ======================================
@@ -13,7 +13,7 @@ GROUP SPACING
 ====================================== */
 
 .sidebar button {
-    display: block;
+    display: block; /* Butonları alt alta diz (block element yap) */
 }
 
 /* ======================================
@@ -21,41 +21,38 @@ SPEED VALUE
 ====================================== */
 
 #speedValue {
+    display: inline-flex;              /* Esnek kutu olarak hizala */
+    justify-content: center;           /* Yatayda ortala */
+    align-items: center;               /* Dikeyde ortala */
 
-    display: inline-flex;
-    justify-content: center;
-    align-items: center;
+    width: 60px;                       /* Sabit genişlik */
+    min-width: 60px;                   /* Minimum genişlik */
+    max-width: 60px;                   /* Maksimum genişlik */
 
-    width: 60px;        /* sabit kutu */
-    min-width: 60px;
-    max-width: 60px;
-
-    font-family: monospace;  /* tüm karakterler eşit genişlik */
-    font-weight: bold;;
-
+    font-family: monospace;            /* Tüm karakterler eşit genişlikte olsun (monospace) */
+    font-weight: bold;                 /* Kalın yazı */
 }
 
 #targetNodeHint,
 #startNodeHint {
 
-    background: #f4f6f8;
-    border: 1px solid #ddd;
-    padding: 8px 12px;
-    margin-bottom: 8px;
-    font-size: 14px;
-    color: #555;
-    border-radius: 6px;
-
+    background: #f4f6f8;               /* Açık gri arka plan */
+    border: 1px solid #ddd;            /* İnce gri kenarlık */
+    padding: 8px 12px;                 /* İç boşluk */
+    margin-bottom: 8px;                /* Alt boşluk */
+    font-size: 14px;                   /* Yazı boyutu */
+    color: #555;                       /* Koyu gri yazı rengi */
+    border-radius: 6px;                /* Köşeleri yuvarla */
 }
 
 #speedSlider {
 
-    width: 120px;
+    width: 120px; /* Hız kaydırıcısının genişliği */
 
 }
 
 .disabled {
-    opacity: 0.4;
-    pointer-events: auto; /* önemli! click yakalayacağız */
-    cursor: not-allowed;
+    opacity: 0.4; /* Daha şeffaf görünüm (devre dışı hissi) */
+    pointer-events: auto; /* Tıklama olaylarını hâlâ yakala (önemli) */
+    cursor: not-allowed; /* Fare imlecini "yasak" simgesi yap */
 }

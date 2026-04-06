@@ -1,138 +1,138 @@
 /* ========================================
-GLOBAL THEME
+   GLOBAL THEME (Genel Tema ve Renkler)
 ======================================== */
 
 body {
-    font-family: "Segoe UI", Roboto, Arial, sans-serif;
-    background: #f4f6fb;
-    color: #333;
+    font-family: "Segoe UI", Roboto, Arial, sans-serif;   /* Genel yazı tipi (modern ve okunaklı) */
+    background: #f4f6fb;                                  /* Sayfa arka plan rengi (çok açık mavi-gri) */
+    color: #333;                                          /* Genel metin rengi (koyu gri) */
 }
 
 /* ========================================
-HEADER
+   HEADER (Üst Başlık Çubuğu Teması)
 ======================================== */
 
 .header {
-    background: linear-gradient(90deg,#2c3e50,#34495e);
-    color: white;
-    font-size: 22px;
-    font-weight: 600;
+    background: linear-gradient(90deg,#2c3e50,#34495e);   /* Soldan sağa koyu mavi-gri gradient arka plan */
+    color: white;                                         /* Yazı rengi beyaz */
+    font-size: 22px;                                      /* Başlık yazı boyutu */
+    font-weight: 600;                                     /* Kalın yazı */
 }
 
 /* ========================================
-SIDEBAR
+   SIDEBAR (Sol Panel Teması)
 ======================================== */
 
 .sidebar {
-    background: #ffffff;
-    padding: 20px;
+    background: #ffffff;                                  /* Beyaz arka plan */
+    padding: 20px;                                        /* İç boşluk */
 }
 
 .sidebar h3 {
-    margin-bottom: 10px;
-    font-size: 16px;
-    border-bottom: 1px solid #eee;
-    padding-bottom: 5px;
+    margin-bottom: 10px;                                  /* Başlık altı boşluğu */
+    font-size: 16px;                                      /* Başlık yazı boyutu */
+    border-bottom: 1px solid #eee;                        /* Altında ince gri çizgi */
+    padding-bottom: 5px;                                  /* Çizgi ile yazı arası boşluk */
 }
 
 /* ========================================
-BUTTONS
+   BUTTONS (Buton Temaları)
 ======================================== */
 
 button {
-    width: 100%;
-    margin-bottom: 8px;
-    padding: 8px;
-    border: none;
-    border-radius: 6px;
-    background: #3498db;
-    color: white;
-    cursor: pointer;
-    font-size: 14px;
-    transition: 0.2s;
+    width: 100%;                                          /* Buton genişliği %100 */
+    margin-bottom: 8px;                                   /* Butonlar arası alt boşluk */
+    padding: 8px;                                         /* İç boşluk */
+    border: none;                                         /* Kenarlık kaldırma */
+    border-radius: 6px;                                   /* Köşeleri yuvarla */
+    background: #3498db;                                  /* Ana buton rengi (mavi) */
+    color: white;                                         /* Beyaz yazı rengi */
+    cursor: pointer;                                      /* Fare imleci el şeklinde olsun */
+    font-size: 14px;                                      /* Yazı boyutu */
+    transition: 0.2s;                                     /* Hover efekti için yumuşak geçiş */
 }
 
 button:hover {
-    background: #2980b9;
+    background: #2980b9;                                  /* Üzerine gelince biraz daha koyu mavi */
 }
 
-/* Secondary buttons */
+/* Secondary buttons (İkincil butonlar - Next ve Prev) */
 
 #nextStepBtn,
 #prevStepBtn {
-    background: #27ae60;
+    background: #27ae60;                                  /* Yeşil renk (ilerleme butonları) */
 }
 
 #nextStepBtn:hover,
 #prevStepBtn:hover {
-    background: #219150;
+    background: #219150;                                  /* Hover’da daha koyu yeşil */
 }
 
-/* Danger button */
+/* Danger button (Tehlike butonu - Temizle) */
 
 #clearGraphBtn {
-    background: #e74c3c;
+    background: #e74c3c;                                  /* Kırmızı renk (silme butonu) */
 }
 
 #clearGraphBtn:hover {
-    background: #c0392b;
+    background: #c0392b;                                  /* Hover’da daha koyu kırmızı */
 }
 
 /* ========================================
-SELECT
+   SELECT (Seçim Kutusu Teması)
 ======================================== */
 
 select {
-    width: 100%;
-    padding: 6px;
-    border-radius: 5px;
-    border: 1px solid #ccc;
+    width: 100%;                                          /* Genişliği %100 doldur */
+    padding: 6px;                                         /* İç boşluk */
+    border-radius: 5px;                                   /* Köşeleri yuvarla */
+    border: 1px solid #ccc;                               /* Gri kenarlık */
 }
 
 /* ========================================
-SLIDER
+   SLIDER (Hız Kaydırıcısı Teması)
 ======================================== */
 
 #speedSlider {
-    width: 100%;
+    width: 100%;                                          /* Genişliği %100 doldur */
 }
 
 /* ========================================
-GRAPH AREA
+   GRAPH AREA (Grafik Alanı Teması)
 ======================================== */
 
 .graph-area {
-    background: #f9fafc;
-    padding: 10px;
+    background: #f9fafc;                                  /* Çok açık gri-mavi arka plan */
+    padding: 10px;                                        /* İç boşluk */
 }
 
 #graphCanvas {
-    border-radius: 8px;
-    border: 1px solid #ddd;
+    border-radius: 8px;                                   /* Köşeleri yuvarla */
+    border: 1px solid #ddd;                               /* İnce gri kenarlık */
 }
 
 /* ========================================
-LOG PANEL
+   LOG PANEL (Log Paneli Teması)
 ======================================== */
 
 .log-panel {
-    background: #ffffff;
+    background: #ffffff;                                  /* Beyaz arka plan */
 }
 
 .log-panel h3 {
-    border-bottom: 1px solid #eee;
-    padding-bottom: 6px;
+    border-bottom: 1px solid #eee;                        /* Altında ince gri çizgi */
+    padding-bottom: 6px;                                  /* Çizgi ile yazı arası boşluk */
 }
 
 #logList {
-    max-height: 80vh;
-    overflow-y: auto;
+    max-height: 80vh;                                     /* Maksimum yükseklik (ekranın %80’i) */
+    overflow-y: auto;                                     /* İçerik taşarsa dikey scroll çubuğu */
 }
 
 #logList li {
-    background: #f7f8fb;
-    padding: 6px;
-    border-radius: 4px;
-    margin-bottom: 6px;
-    font-size: 13px;
+    background: #f7f8fb;                                  /* Her log satırı için açık gri arka plan */
+    padding: 6px;                                         /* İç boşluk */
+    border-radius: 4px;                                   /* Köşeleri hafif yuvarla */
+    margin-bottom: 6px;                                   /* Loglar arası alt boşluk */
+    font-size: 13px;                                      /* Yazı boyutu */
 }
