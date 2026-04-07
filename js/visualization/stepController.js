@@ -3,19 +3,17 @@
 STEP CONTROLLER
 ========================================
 
-Algoritma adımlarını yönetir.
-
-Özellikler:
-- next step
-- previous step
-- play
-- pause
-- reset
-- speed control
+Bu sınıf, algoritmanın adım adım çalıştırılmasını yönetir.
+Kullanıcı "Next Step", "Previous Step", "Play", "Pause" ve "Reset" gibi işlemleri 
+bu sınıf üzerinden gerçekleştirir.
+Ayrıca hız kontrolü (speed) ve log paneli güncellemelerini de burası yönetir.
 */
 
+// StepController: Algoritmanın adım adım çalıştırılmasını yöneten sınıf
+// GraphRenderer ve LogPanel ile etkileşimde bulunarak görselleştirme ve log güncellemelerini yapar
 export class StepController {
 
+    // StepController'ın kurucusu, GraphRenderer ve LogPanel örneklerini alır
     constructor(graphRenderer, logPanel) {
 
         // Graph görselleştirme
@@ -33,7 +31,7 @@ export class StepController {
         // animation speed
         this.speed = 1000;
 
-        // play interval
+        // Otomatik oynatma (play) için interval referansı
         this.interval = null;
     }
 
@@ -44,13 +42,17 @@ export class StepController {
     ========================================
     */
 
+    /**
+     * Algoritmadan gelen adımları yükler ve başlangıç durumuna getirir.
+     * @param {Array} steps - Algoritma tarafından üretilen adım dizisi
+     */
     loadSteps(steps) {
 
-        this.steps = steps;
-        this.currentStep = -1;
+        this.steps = steps; // Yeni adımları kaydet
+        this.currentStep = -1; // Adım dizisinin başına gel (henüz hiçbir adım uygulanmamış)
 
-        this.graphRenderer.resetStyles();
-        this.logPanel.clear();
+        this.graphRenderer.resetStyles(); // Grafiği varsayılan görünüme sıfırla
+        this.logPanel.clear(); // Log panelini temizle (eski adımların loglarını sil)
     }
 
 
@@ -60,15 +62,18 @@ export class StepController {
     ========================================
     */
 
+    /**
+     * Bir sonraki adıma geçer ve ilgili görsel + log işlemini gerçekleştirir.
+     */
     nextStep() {
 
-        if (this.currentStep >= this.steps.length - 1) return;
+        if (this.currentStep >= this.steps.length - 1) return; // Son adıma gelinmişse daha ileri gidemez
 
-        this.currentStep++;
+        this.currentStep++; // Bir sonraki adıma geç
 
-        const step = this.steps[this.currentStep];
+        const step = this.steps[this.currentStep]; // Şu anki adımı al
 
-        this.executeStep(step);
+        this.executeStep(step); // Adımı uygula (görselleştirme ve log işlemleri)
     }
 
 
@@ -78,15 +83,20 @@ export class StepController {
     ========================================
     */
 
+    /**
+     * Bir önceki adıma geri döner.
+     * Geri gitmek için tüm adımları baştan tekrar çalıştırır (stateful olduğu için).
+     */
     previousStep() {
 
-        if (this.currentStep < 0) return;
+        if (this.currentStep < 0) return; // İlk adıma gelinmişse daha geri gidemez
 
-        this.currentStep--;
+        this.currentStep--; // Bir önceki adıma geç
 
+        // Önceki adıma dönmek için her şeyi sıfırlayıp baştan oynatıyoruz
         this.graphRenderer.resetStyles();
 
-        this.logPanel.clear();
+        this.logPanel.clear(); // Log panelini temizle (eski adımların loglarını sil)
 
         // Baştan replay yap
         for (let i = 0; i <= this.currentStep; i++) {
@@ -104,20 +114,28 @@ export class StepController {
     ========================================
     */
 
+    /**
+     * Adımları otomatik olarak sırayla oynatır.
+     * Belirlenen hızda (this.speed) her adım çalıştırılır.
+     */
     play() {
 
-        if (this.interval) return;
+        if (this.interval) return; // Zaten oynatılıyorsa tekrar başlatma
 
+        // Otomatik oynatma için interval başlat
         this.interval = setInterval(() => {
 
+            // Son adıma gelinmişse otomatik oynatmayı durdur
             if (this.currentStep >= this.steps.length - 1) {
 
                 this.pause();
                 return;
             }
 
+            // Bir sonraki adıma geç
             this.nextStep();
 
+            // Adımların hızını this.speed üzerinden kontrol ediyoruz (ms cinsinden)
         }, this.speed);
     }
 
@@ -128,8 +146,11 @@ export class StepController {
     ========================================
     */
 
+    /**
+     * Otomatik oynatmayı durdurur.
+     */
     pause() {
-
+        // Otomatik oynatma interval'ını temizle
         clearInterval(this.interval);
         this.interval = null;
     }
@@ -159,10 +180,12 @@ export class StepController {
     ========================================
     */
 
+    // Hız çarpanını alır (örneğin 1x, 2x, 0.5x) ve this.speed'i buna göre ayarlar
     setSpeed(multiplier) {
 
         this.speed = 1000 / multiplier;
 
+        // Eğer şu anda otomatik oynatma aktifse, yeni hızla tekrar başlat
         if (this.interval) {
 
             this.pause();
@@ -177,10 +200,17 @@ export class StepController {
     ========================================
     */
 
+    /**
+     * Tek bir adımı gerçekleştirir (renklendirme + log ekleme)
+     * @param {Object} step - Çalıştırılacak adım nesnesi
+     * @param {boolean} log - Log paneline mesaj yazılacak mı? (previousStep için kullanılır)
+     */
     executeStep(step, log = true) {
 
+        // Adım türüne göre görselleştirme işlemi yap
         switch (step.type) {
 
+            // Düğüm ziyaret edildiğinde veya güncellendiğinde düğümü renklendir
             case "visitNode":
 
                 this.graphRenderer.highlightNode(
@@ -190,6 +220,7 @@ export class StepController {
 
                 break;
 
+            // Kenar relax edildiğinde kenarı renklendir
             case "relaxEdge":
 
                 if (step.edge) {
@@ -218,13 +249,15 @@ export class StepController {
                 
             break;
 
-            case "log":
+            case "log": // Sadece log mesajı olan adımlar (renklendirme yok)
 
             break;
         }
 
+        // Log mesajı varsa ve log parametresi true ise, log paneline mesaj ekle
         if (log && step.message) {
 
+            // Log paneline mesaj ekle
             this.logPanel.add(step.message);
         }
     }
