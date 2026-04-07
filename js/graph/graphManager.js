@@ -9,9 +9,12 @@ Nodes ve Edges burada tutulur.
 Algoritmalar bu yapı üzerinden çalışır.
 */
 
+// GraphManager: Düğümleri, kenarları ve grafik verilerini tutan ana sınıf
+// Algoritmalar bu sınıfın getNeighbors() gibi fonksiyonlarını kullanarak grafiği sorgular
+// GraphEditor ve GraphRenderer bu sınıfın verilerini kullanarak grafiği düzenler ve çizer
 export class GraphManager {
 
-    constructor() {
+    constructor() { // GraphManager başlatıldığında, boş bir graph yapısı oluşturulur
 
         // Node listesi
         this.nodes = [];
@@ -33,24 +36,24 @@ export class GraphManager {
     ========================================
     */
 
-    addNode() {
+    addNode() { // Yeni bir düğüm oluştur ve nodeIdCounter ile ID ver, sonra nodeIdCounter'ı artır
 
          const node = {
             id: this.nodeIdCounter,
-            label: String(this.nodeIdCounter),
+            label: String(this.nodeIdCounter), // Ekranda düğümün üzerinde gösterilecek metin (ID'yi string olarak kullan)
 
             // node konumu (ilk başta null)
             x: null,
             y: null
         };
 
-        this.nodes.push(node);
+        this.nodes.push(node); // node'u node listesine ekle
         this.nodeIdCounter++;
 
         return node;
     }
 
-    removeNode(nodeId) {
+    removeNode(nodeId) { // nodeId'ye sahip düğümü sil ve ona bağlı kenarları da sil
 
         this.nodes = this.nodes.filter(node => node.id !== nodeId);
 
@@ -66,6 +69,7 @@ export class GraphManager {
     ========================================
     */
 
+    // from ve to nodeId'leri ile yeni bir kenar oluştur, weight varsayılan olarak 1, kenara ID ver (from-to formatında)
     addEdge(from, to, weight = 1) {
 
         const edge = {
@@ -97,7 +101,7 @@ export class GraphManager {
         
         this.nodes = [];
         this.edges = [];
-        this.nodeIdCounter = 1;
+        this.nodeIdCounter = 1; // Node ID sayacını sıfırla
     }
 
 
@@ -106,13 +110,15 @@ export class GraphManager {
     Used by algorithms
     */
 
+    // getNeighbors(nodeId): nodeId'ye sahip düğümün komşularını döndürür (hem directed hem de undirected graph için çalışır)
     getNeighbors(nodeId) {
 
         const neighbors = [];
 
+        // Tüm kenarları dolaşarak, nodeId'ye sahip düğümün komşularını bul
         for (let edge of this.edges) {
 
-            if (edge.from === nodeId) {
+            if (edge.from === nodeId) { // Eğer kenarın başlangıç düğümü nodeId ise, kenarın bitiş düğümü komşudur
 
                 neighbors.push({
                     node: edge.to,
@@ -120,7 +126,8 @@ export class GraphManager {
                 });
             }
 
-            if (!this.directed && edge.to === nodeId) {
+            // Eğer graph directed değilse ve kenarın bitiş düğümü nodeId ise, kenarın başlangıç düğümü de komşudur
+            if (!this.directed && edge.to === nodeId) { 
 
                 neighbors.push({
                     node: edge.from,

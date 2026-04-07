@@ -1,34 +1,38 @@
 /*
 ========================================
-GRAPH EDITOR
+   GRAPH EDITOR
 ========================================
 
-Kullanıcının graph oluşturmasını sağlar.
-
-Özellikler:
-- Node ekleme
-- Edge ekleme
+Bu sınıf, kullanıcının grafiği etkileşimli olarak düzenlemesini sağlar.
+Özellikleri:
+- Düğüm (Node) ekleme
+- Kenar (Edge) ekleme
+- Başlangıç ve Hedef düğüm seçme
+- Düğüm ve kenar silme
+- Düğüm pozisyonlarını güncelleme
 */
 
 export class GraphEditor {
 
     constructor(graphManager, graphRenderer) {
 
-        this.graphManager = graphManager;
-        this.graphRenderer = graphRenderer;
+        this.graphManager = graphManager; // GraphManager ile düğüm ve kenar verilerini yönetir
+        this.graphRenderer = graphRenderer; // GraphRenderer ile grafiği canvas üzerinde çizer ve günceller
 
-        this.edgeMode = false;
-        this.firstNode = null;
+        // Edge ekleme modu ile ilgili değişkenler
+        this.edgeMode = false; // Kenar ekleme modunun aktif olup olmadığını tutar
+        this.firstNode = null; // Kenar ekleme modunda ilk seçilen düğümün ID'sini tutar
 
-        this.selectStartMode = false;
-        this.selectTargetMode = false;
+        // Başlangıç ve hedef düğüm seçme modları
+        this.selectStartMode = false; // Başlangıç düğümü seçme modu
+        this.selectTargetMode = false; // Hedef düğümü seçme modu
 
-        this.startNode = null;
-        this.targetNode = null;
+        this.startNode = null; // Seçilen başlangıç düğümü ID'si
+        this.targetNode = null; // Seçilen hedef düğümü ID'si
 
-
-        this.initializeNetworkEvents();
-        this.initializeButtons();
+        // Olay dinleyicilerini başlat
+        this.initializeNetworkEvents(); // Network olaylarını (tıklama, sürükleme vb.) tanımlar
+        this.initializeButtons(); // UI butonlarına tıklama olaylarını tanımlar
 
     }
 
@@ -40,9 +44,10 @@ export class GraphEditor {
 
     initializeButtons() {
 
-        const startBtn = document.getElementById("startNodeHint");
-        const targetBtn = document.getElementById("targetNodeHint");
+        const startBtn = document.getElementById("startNodeHint"); // Başlangıç düğümü seçme butonu
+        const targetBtn = document.getElementById("targetNodeHint"); // Hedef düğümü seçme butonu
 
+        // Başlangıç düğümü seçme butonuna tıklama olayı
         startBtn.addEventListener("click", () => {
 
             this.selectStartMode = true;
@@ -52,6 +57,7 @@ export class GraphEditor {
 
         });
 
+        // Hedef düğümü seçme butonuna tıklama olayı
         targetBtn.addEventListener("click", () => {
 
             this.selectTargetMode = true;
@@ -67,7 +73,7 @@ export class GraphEditor {
     /*
     ========================================
     NETWORK EVENTS
-    Node seçme işlemleri
+    Node tıklama, sürükleme gibi etkileşimleri yönetir
     ========================================
     */
 
@@ -75,10 +81,13 @@ export class GraphEditor {
 
         const network = this.graphRenderer.network;
 
+        // Canvas üzerinde herhangi bir yere tıklandığında çalışır
         network.on("click", (params) => {
 
+            // Eğer düğüm tıklanmadıysa hiçbir şey yapma
             if (params.nodes.length === 0) return;
 
+            // Tıklanan düğümün ID'sini al
             const nodeId = params.nodes[0];
 
             /*
@@ -87,6 +96,7 @@ export class GraphEditor {
             ===============================
             */
 
+            // Eğer başlangıç düğümü seçme modundaysak
             if (this.selectStartMode) {
 
                 if (nodeId === this.targetNode) {
@@ -94,7 +104,7 @@ export class GraphEditor {
                     return;
                 }
 
-                // eski start node'u mavi yap
+                // Önceki başlangıç düğümünün rengini eski haline getir (eğer yeni bir başlangıç düğümü seçildiyse)
                 if (this.startNode !== null) {
                     this.graphRenderer.nodes.update({
                         id: this.startNode,
@@ -105,13 +115,17 @@ export class GraphEditor {
                     });
                 }
 
+                // Yeni başlangıç düğümünü kaydet
                 this.startNode = nodeId;
 
+                // Başlangıç düğümü seçildiğine dair kullanıcıya bilgi ver (ekranda yazdır)
                 document.getElementById("startNodeHint").innerText =
                     "Start node: " + nodeId;
 
+                // Başlangıç düğümü seçme modunu kapat
                 this.selectStartMode = false;
 
+                // Seçilen düğümün rengini yeşil yaparak başlangıç düğümü olduğunu görsel olarak belirt
                 this.graphRenderer.nodes.update({
                     id: nodeId,
                     color: {
@@ -130,6 +144,7 @@ export class GraphEditor {
             ===============================
             */
 
+            // Eğer hedef düğümü seçme modundaysak
             if (this.selectTargetMode) {
 
                 if (nodeId === this.startNode) {
@@ -137,7 +152,7 @@ export class GraphEditor {
                     return;
                 }
 
-                // eski target node'u mavi yap
+                // Önceki hedef düğümünün rengini eski haline getir (eğer yeni bir hedef düğümü seçildiyse)
                 if (this.targetNode !== null) {
                     this.graphRenderer.nodes.update({
                         id: this.targetNode,
@@ -148,13 +163,15 @@ export class GraphEditor {
                     });
                 }
 
-                this.targetNode = nodeId;
+                this.targetNode = nodeId; // Yeni hedef düğümünü kaydet
 
+                // Hedef düğümü seçildiğine dair kullanıcıya bilgi ver (ekranda yazdır)
                 document.getElementById("targetNodeHint").innerText =
                     "Target node: " + nodeId;
 
                 this.selectTargetMode = false;
 
+                // Seçilen düğümün rengini kırmızı yaparak hedef düğümü olduğunu görsel olarak belirt
                 this.graphRenderer.nodes.update({
                     id: nodeId,
                     color: {
@@ -173,20 +190,25 @@ export class GraphEditor {
             ===============================
             */
 
+            // Eğer kenar ekleme modundaysak
             if (!this.edgeMode) return;
 
+            // Kenar ekleme modunda ilk tıklanan düğüm, o an tıklanan node null ise o node'u ilk node olarak kaydet
+            // çünkü ondan önce bir node'a tıklanmamış demektir. Eğer ilk node zaten seçilmişse, ikinci node'u kaydet ve iki node arasında kenar oluştur
             if (this.firstNode === null) {
 
                 // İlk node seçildi
                 this.firstNode = nodeId;
                 console.log("First node selected:", nodeId);
 
-            } else {
+            } else { 
 
                 const secondNode = nodeId;
 
-                const weight = prompt("Enter edge weight:", "1");
+                const weight = prompt("Enter edge weight:", "1"); // Kenar ağırlığını kullanıcıdan al
+                // prompt = tarayıcının hazır pop-up fonksiyonu
 
+                // Eğer kullanıcı geçerli bir ağırlık girdiyse kenarı ekle
                 if (weight !== null) {
 
                     this.graphManager.addEdge(
@@ -198,23 +220,26 @@ export class GraphEditor {
                     this.updateGraph();
                 }
 
+                // Kenar eklendikten sonra edge mode'u kapat ve ilk node'u sıfırla
                 this.firstNode = null;
                 this.edgeMode = false;
             }
         });
 
+        // Düğüm sürüklendikten sonra yeni pozisyonunu kaydet
         network.on("dragEnd", (params) => {
 
-            if (params.nodes.length === 0) return;
+            if (params.nodes.length === 0) return; // Eğer düğüm sürüklenmediyse hiçbir şey yapma
 
-            const nodeId = params.nodes[0];
+            const nodeId = params.nodes[0]; // Sürüklendikten sonra pozisyonunu güncellemek istediğimiz düğümün ID'si
 
-            const positions = network.getPositions([nodeId]);
-            const pos = positions[nodeId];
+            const positions = network.getPositions([nodeId]); // Sürüklendikten sonra düğümün yeni pozisyonunu al
+            const pos = positions[nodeId]; // Pozisyon bilgisi {x: ..., y: ...} şeklinde gelir
 
             // GraphManager içindeki node'u bul
             const node = this.graphManager.nodes.find(n => n.id === nodeId);
 
+            // Eğer node bulunduysa, GraphManager içindeki node'un x ve y koordinatlarını güncelle
             if (node) {
                 node.x = pos.x;
                 node.y = pos.y;
@@ -232,6 +257,7 @@ export class GraphEditor {
 
     updateNodeColors() {
 
+        // GraphManager içindeki tüm düğümleri dolaşarak, başlangıç ve hedef düğümlerinin renklerini güncelle
         this.graphManager.nodes.forEach(node => {
 
             let background = "#4a90e2";
@@ -273,10 +299,12 @@ export class GraphEditor {
 
     addNode() {
 
+        // GraphManager'a yeni bir düğüm ekle
         const node = this.graphManager.addNode();
 
         console.log("Node added:", node);
 
+        // Grafiği güncelle
         this.updateGraph();
         this.updateNodeColors();
     }
@@ -319,8 +347,8 @@ export class GraphEditor {
         document.getElementById("targetNodeHint").innerText =
             "Select Target Node";
 
-        this.graphManager.clearGraph();
-        this.updateGraph();
+        this.graphManager.clearGraph(); // GraphManager içindeki düğüm ve kenar verilerini temizle
+        this.updateGraph(); // Grafiği güncelle (boş grafiği göster)
     }
 
 
@@ -331,7 +359,7 @@ export class GraphEditor {
     */
 
     updateGraph() {
-
+        // GraphManager içindeki düğüm ve kenar verilerini alarak grafiği yeniden çiz
         this.graphRenderer.render(
             this.graphManager.nodes,
             this.graphManager.edges
@@ -350,13 +378,13 @@ export class GraphEditor {
 
         // node'u sil
         this.graphManager.nodes =
-            this.graphManager.nodes.filter(
+            this.graphManager.nodes.filter( // nodeId'ye sahip olmayan node'ları tut, nodeId'ye sahip olanı sil
                 n => n.id !== nodeId
             );
 
         // node'a bağlı edge'leri sil
         this.graphManager.edges =
-            this.graphManager.edges.filter(
+            this.graphManager.edges.filter( // nodeId'ye bağlı olmayan edge'leri tut, nodeId'ye bağlı olanları sil
                 e => e.from !== nodeId && e.to !== nodeId
             );
 
@@ -373,8 +401,9 @@ export class GraphEditor {
 
     deleteEdge(edgeId) {
 
+        // edge'i sil
         this.graphManager.edges =
-            this.graphManager.edges.filter(
+            this.graphManager.edges.filter( // edgeId'ye sahip olmayan edge'leri tut, edgeId'ye sahip olanı sil
                 e => e.id !== edgeId
             );
 
