@@ -13,7 +13,7 @@ body {
 ======================================== */
 
 .header {
-    background: linear-gradient(90deg,#2c3e50,#34495e);   /* Soldan sağa koyu mavi-gri gradient arka plan */
+    background: linear-gradient(90deg,#f88afa,#f02bb2);   /* Soldan sağa açık pembe - pembe gradient arka plan */
     color: white;                                         /* Yazı rengi beyaz */
     font-size: 22px;                                      /* Başlık yazı boyutu */
     font-weight: 600;                                     /* Kalın yazı */
