@@ -150,7 +150,7 @@ index.html dosyasını tarayıcıda aç
 
 ## 📞 Support & Contact
 
--   📧 Email: [ozdogrumerve57@gmail.com] 
+-   📧 Email: ozdogrumerve57@gmail.com
 -   🐛 Issues: Feel free to report bugs or suggest features on [GitHub Issues](https://github.com/ozdogrumerve/Spotly/issues)
 -   👤 Author: [Merve Özdoğru](https://github.com/ozdogrumerve)
 
