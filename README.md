@@ -20,6 +20,10 @@ This project is especially useful for:
 -  Developers preparing for interviews
 -  Anyone who wants to see how algorithms actually work
 
+## 💡 Key Idea
+
+This project focuses on making internal algorithm behavior visible by showing how distances, edges, and structures evolve step-by-step during execution.
+
 ## ✨ Features
 
 - **🎯 Interactive Graph Editor**: Add/remove nodes and edges | Assign weights to edges
@@ -29,10 +33,11 @@ This project is especially useful for:
 - **📝 Live Log Panel**: See what happens at each step (e.g., relax edge, update distance)
 - **🎨 Visual Feedback**: Highlighted nodes and edges | Active path visualization
 - **💾 Export Options**: Export graph as JSON | Export visualization as image
+- **⚙️ Modular Architecture**: Separation of graph logic, visualization, and UI layers for maintainability and scalability
 
 ## 🖥️ Screenshots
 
-<img src="\assets\screenshot.png" width="800" /><br/>
+<img src="/assets/screenshot.png" width="800" /><br/>
 
 ## 🛠️ Tech Stack
 
@@ -46,11 +51,14 @@ This project is especially useful for:
 ![DOM](https://img.shields.io/badge/DOM-4285F4?style=for-the-badge&logo=googlechrome&logoColor=white)
 
 ## 🚀 How It Works
-1. Create a graph using the editor
-2. Select an algorithm
-3. Choose start/target nodes (if required)
-4. Click Start
-5. Step through the algorithm or play animation
+
+1. Construct a graph using the interactive editor (nodes, edges, and weights)
+2. Select an algorithm (e.g., Dijkstra, Bellman-Ford, MST)
+3. Initialize algorithm-specific parameters (source/target nodes if required)
+4. Execute the algorithm
+5. The system processes the graph structure and iteratively updates internal states (e.g., distances, visited nodes, edge relaxations)
+6. Each step is visualized in real time through canvas updates and synchronized log outputs
+7. Navigate through the execution using step controls or automated playback
 
 ## 📁 Project Structure
 
@@ -94,37 +102,17 @@ graph-algorithm-visualizer/
 
 ## ⚙️ Algorithms Implemented
 
-**🔹 Dijkstra**
+### 🔹 Dijkstra
+Computes the shortest path from a source node by iteratively selecting the node with the minimum tentative distance and relaxing its outgoing edges. Ensures optimal paths in graphs with non-negative weights.
 
+### 🔹 Bellman-Ford
+Calculates shortest paths by repeatedly relaxing all edges, allowing it to handle graphs with negative weights and detect negative weight cycles.
 
-Shortest path algorithm
+### 🔹 Kruskal
+Constructs a Minimum Spanning Tree by sorting edges by weight and incrementally adding them while avoiding cycles using a Union-Find data structure.
 
-
-Works with non-negative weights
-
-**🔹 Bellman-Ford**
-
-
-Handles negative weights
-
-
-Detects negative cycles
-
-**🔹 Kruskal**
-
-
-Minimum Spanning Tree
-
-
-Uses Union-Find structure
-
-**🔹 Prim**
-
-
-Minimum Spanning Tree
-
-
-Greedy approach
+### 🔹 Prim
+Builds a Minimum Spanning Tree by greedily expanding from a starting node, always selecting the minimum-weight edge that connects a visited node to an unvisited node.
 
 ## 🎮 Controls 
 
@@ -140,7 +128,7 @@ Greedy approach
 
 1. Clone the repo
 ```bash
-git clone https://github.com/your-username/graph-visualizer.git
+git clone https://github.com/ozdogrumerve/graph-algorithm-visualizer.git
 cd graph-visualizer
 ```
 
