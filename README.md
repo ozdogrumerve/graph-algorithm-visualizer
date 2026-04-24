@@ -2,9 +2,9 @@
 
 <div align="center">
 
-[![GitHub stars](https://img.shields.io/github/stars/ozdogrumerve/Spotly?style=for-the-badge)](https://github.com/ozdogrumerve/Spotly/stargazers)
-[![GitHub forks](https://img.shields.io/github/forks/ozdogrumerve/Spotly?style=for-the-badge)](https://github.com/ozdogrumerve/Spotly/network)
-[![GitHub issues](https://img.shields.io/github/issues/ozdogrumerve/Spotly?style=for-the-badge)](https://github.com/ozdogrumerve/Spotly/issues)
+[![GitHub stars](https://img.shields.io/github/stars/ozdogrumerve/graph-algorithm-visualizer?style=for-the-badge)](https://github.com/ozdogrumerve/graph-algorithm-visualizer/stargazers)
+[![GitHub forks](https://img.shields.io/github/forks/ozdogrumerve/graph-algorithm-visualizer?style=for-the-badge)](https://github.com/ozdogrumerve/graph-algorithm-visualizer/network)
+[![GitHub issues](https://img.shields.io/github/issues/ozdogrumerve/graph-algorithm-visualizer?style=for-the-badge)](https://github.com/ozdogrumerve/graph-algorithm-visualizer/issues)
 
 An interactive tool to visualize graph algorithms step-by-step in real time.
 
