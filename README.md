@@ -2,6 +2,8 @@
 
 <div align="center">
 
+[![Live Demo](https://img.shields.io/badge/Live-Demo-brightgreen?style=for-the-badge)](https://ozdogrumerve.github.io/graph-algorithm-visualizer/)
+
 [![GitHub stars](https://img.shields.io/github/stars/ozdogrumerve/graph-algorithm-visualizer?style=for-the-badge)](https://github.com/ozdogrumerve/graph-algorithm-visualizer/stargazers)
 [![GitHub forks](https://img.shields.io/github/forks/ozdogrumerve/graph-algorithm-visualizer?style=for-the-badge)](https://github.com/ozdogrumerve/graph-algorithm-visualizer/network)
 [![GitHub issues](https://img.shields.io/github/issues/ozdogrumerve/graph-algorithm-visualizer?style=for-the-badge)](https://github.com/ozdogrumerve/graph-algorithm-visualizer/issues)
